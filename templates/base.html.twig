@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Météo App{% endblock %}</title>
     <link rel="icon" href="{{ asset('build/images/logo.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
@@ -13,7 +17,7 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body class="bg-[#030712] text-white min-h-screen flex flex-col">
-<div id="app" class="flex-grow container mx-auto px-4 py-8"></div>
+<body>
+    {% block body %}{% endblock %}
 </body>
 </html>

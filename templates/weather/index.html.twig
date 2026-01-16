@@ -1,7 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Météo Vue{% endblock %}
+{% block title %}Météo{% endblock %}
 
 {% block body %}
-    <div id="app"></div>
+    <div id="weather-app"
+         data-is-authenticated="{{ app.user ? 'true' : 'false' }}"
+         data-user-email="{{ app.user ? app.user.email : '' }}"
+         data-login-url="{{ path('app_login') }}"
+         data-logout-url="{{ path('app_logout') }}"
+         data-register-url="{{ path('app_register') }}">
+    </div>
 {% endblock %}

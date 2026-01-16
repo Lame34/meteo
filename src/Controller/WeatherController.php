@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -10,16 +11,22 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class WeatherController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
+    public function __construct(
+        #[Autowire('%env(OPEN_WEATHER_API_KEY)%')]
+        private readonly string $openWeatherApiKey,
+    ) {
+    }
+
+    #[Route('/', name: 'app_weather_home')]
     public function index(): Response
     {
-        return $this->render('base.html.twig');
+        return $this->render('weather/index.html.twig');
     }
 
     #[Route('/api/weather/{city}', name: 'api_weather', methods: ['GET'])]
     public function getWeather(string $city, HttpClientInterface $client): JsonResponse
     {
-        $apiKey = $_ENV['OPEN_WEATHER_API_KEY'];
+        $apiKey = $this->openWeatherApiKey;
 
         try {
             $response = $client->request(

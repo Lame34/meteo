@@ -13,18 +13,23 @@ security:
 
     firewalls:
         dev:
-            # Ensure dev tools and static assets are always allowed
-            pattern: ^/(_profiler|_wdt|assets|build)/
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
             provider: app_user_provider
 
-            # Activate different ways to authenticate:
-            # https://symfony.com/doc/current/security.html#the-firewall
+            # Configuration du Login Form
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                enable_csrf: true
+                default_target_path: app_weather_home # Redirection après succès
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            # Configuration du Logout
+            logout:
+                path: app_logout
+                target: app_login # Redirection après déconnexion
 
     # Note: Only the *first* matching rule is applied
     access_control:

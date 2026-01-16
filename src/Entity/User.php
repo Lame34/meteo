@@ -120,6 +120,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $data;
     }
 
+    public function __unserialize(array $data): void
+    {
+        foreach ($data as $key => $value) {
+            $propertyName = preg_replace('/^\x00[^\x00]+\x00/', '', $key);
+            if (property_exists($this, $propertyName)) {
+                $this->$propertyName = $value;
+            }
+        }
+
+        if (!$this->locations instanceof Collection) {
+            $this->locations = new ArrayCollection();
+        }
+    }
+
     /**
      * @return Collection<int, Location>
      */

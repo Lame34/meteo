@@ -31,7 +31,7 @@
                 </div>
                 <div class="bg-gray-700/50 p-4 rounded-lg text-center">
                     <p class="text-gray-400 text-xs uppercase tracking-wider">Vent</p>
-                    <p class="text-xl font-bold">{{ weather.wind.speed }} km/h</p>
+                    <p class="text-xl font-bold">{{ (weather.wind.speed * 3.6)|round }} km/h</p>
                 </div>
             </div>
 
