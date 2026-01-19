@@ -421,22 +421,16 @@ const particleStyle = (i) => ({
 });
 
 const cloudStyle = (i) => {
-    const sizes = [0.6, 0.8, 1, 1.2, 0.7, 0.9, 1.1, 0.75];
-    const tops = [5, 15, 25, 8, 35, 20, 12, 30];
-    const durations = [35, 45, 55, 40, 50, 42, 48, 38];
-    const opacities = [0.9, 0.7, 0.85, 0.75, 0.8, 0.65, 0.7, 0.6];
-
-    // Stagger clouds: 3 groups with increasing delays
+    // Formule simple : variation basée sur l'index
+    const seed = (i * 7) % 8;
     const group = Math.floor((i - 1) / 3);
-    const baseDelay = group * 12; // 0s, 12s, 24s for each group of 3
-    const inGroupDelay = ((i - 1) % 3) * 2; // 0s, 2s, 4s within group
 
     return {
-        top: `${tops[(i - 1) % 8]}%`,
-        animationDuration: `${durations[(i - 1) % 8]}s`,
-        animationDelay: `${baseDelay + inGroupDelay}s`,
-        '--cloud-scale': sizes[(i - 1) % 8],
-        '--cloud-opacity': opacities[(i - 1) % 8]
+        top: `${5 + seed * 4}%`,
+        animationDuration: `${35 + seed * 3}s`,
+        animationDelay: `${group * 12 + ((i - 1) % 3) * 2}s`,
+        '--cloud-scale': 0.6 + seed * 0.08,
+        '--cloud-opacity': 0.6 + seed * 0.04
     };
 };
 
